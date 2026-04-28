@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f5f5f5;
+}
+
+.navbar {
+  background: #061b3a;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 8%;
+}
+
+.logo {
+  font-size: 28px;
+  color: gold;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.hero {
+  height: 500px;
+  background: linear-gradient(to right, white 40%, transparent),
+  url("diamond.jpg");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding-left: 8%;
+}
+
+.hero h1 {
+  font-size: 60px;
+}
+
+.hero span {
+  color: goldenrod;
+}
+
+.verify-box {
+  background: white;
+  margin: -80px auto;
+  padding: 30px;
+  width: 80%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.verify-box input {
+  padding: 15px;
+  width: 60%;
+}
+
+.verify-box button {
+  padding: 15px;
+  background: #061b3a;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
