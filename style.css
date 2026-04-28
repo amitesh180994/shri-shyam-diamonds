@@ -543,3 +543,27 @@ nav a {
   border-radius: 14px;
   object-fit: contain !important;
 }
+/* ===== PREMIUM EFFECTS ===== */
+
+/* Ring glow effect */
+.ring-img {
+  box-shadow: 0 0 25px rgba(212,175,55,0.4);
+  transition: 0.3s;
+}
+
+/* Hover zoom effect */
+.ring-img:hover {
+  transform: scale(1.05);
+}
+
+/* Button premium shadow */
+.verify-row button {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+/* Button hover effect */
+.verify-row button:hover {
+  transform: scale(1.05);
+  background: #0b2556;
+}
