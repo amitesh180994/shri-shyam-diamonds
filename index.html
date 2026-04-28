@@ -1,41 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Shri Shyam Diamonds Verification</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COH Diamond Verification</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header class="navbar">
-  <div class="logo">💎 SSD <span>Shri Shyam Diamonds</span></div>
-  <nav>
-    <a href="#">HOME</a>
-    <a href="#verify">VERIFY</a>
-    <a href="#">CONTACT</a>
-  </nav>
-</header>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">◈</div>
+      <div>
+        <h1>COH</h1>
+        <p>CERTIFICATE ONLINE HUB</p>
+      </div>
+    </div>
 
-<section class="hero">
-  <div>
-    <h1>VERIFY.<br>TRUST.<br><span>BE ASSURED.</span></h1>
-    <p>100% Authentic Diamond Verification</p>
-  </div>
-</section>
+    <nav>
+      <a href="#">HOME</a>
+      <a href="#verify">VERIFY</a>
+      <a href="#about">ABOUT US</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
 
-<section class="verify-box" id="verify">
-  <h2>VERIFY YOUR DIAMOND</h2>
+  <section class="hero">
+    <div class="hero-left">
+      <h2>
+        VERIFY.<br>
+        TRUST.<br>
+        <span>BE ASSURED.</span>
+      </h2>
+      <p>Every diamond tells a story of trust.</p>
+      <p>We ensure it’s 100% authentic.</p>
+    </div>
 
-  <input type="text" id="codeInput" placeholder="Enter Code (SSD-10245)">
-  <br><br>
-  <button onclick="verifyProduct()">VERIFY NOW</button>
+    <div class="hero-right"></div>
+  </section>
 
-  <div id="result"></div>
-</section>
+  <section class="verify-box" id="verify">
+    <h3>VERIFY YOUR DIAMOND</h3>
+    <div class="verify-row">
+      <input type="text" id="codeInput" placeholder="Enter Verification Code (e.g. COH-10245)" />
+      <button onclick="verifyCode()">VERIFY NOW</button>
+    </div>
+    <div id="result"></div>
+  </section>
 
-<script src="script.js"></script>
+  <section class="features" id="about">
+    <div class="feature">
+      <div class="icon">◎</div>
+      <h4>CERTIFIED</h4>
+      <p>BY EXPERTS</p>
+    </div>
 
+    <div class="feature">
+      <div class="icon">✦</div>
+      <h4>ADVANCED</h4>
+      <p>TECHNOLOGY</p>
+    </div>
+
+    <div class="feature">
+      <div class="icon">⬡</div>
+      <h4>100%</h4>
+      <p>AUTHENTIC</p>
+    </div>
+
+    <div class="feature">
+      <div class="icon">♙</div>
+      <h4>CUSTOMER</h4>
+      <p>TRUST</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h3>Contact Us</h3>
+    <p>For diamond verification support, contact your trusted jewellery verification partner.</p>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
-<!-- force deploy -->
-
