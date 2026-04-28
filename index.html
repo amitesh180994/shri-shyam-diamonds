@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shri Shyam Diamonds - Verification</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #0f0f0f;
+      color: white;
+    }
+    .box {
+      margin-top: 100px;
+    }
+    input {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      padding: 10px 20px;
+      background: gold;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>💎 Shri Shyam Diamonds</h1>
+<h3>Diamond Product Verification</h3>
+
+<div class="box">
+  <input type="text" id="code" placeholder="Enter Verification Code">
+  <button onclick="verify()">VERIFY</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+
+const products = {
+  "SSD-10245": {
+    name: "Diamond Ring",
+    diamond: "0.65 Carat",
+    gold: "18K",
+    date: "10-Apr-2026"
+  },
+  "SSD-10246": {
+    name: "Diamond Necklace",
+    diamond: "1.20 Carat",
+    gold: "22K",
+    date: "15-Apr-2026"
+  }
+};
+
+function verify() {
+  let code = document.getElementById("code").value.trim().toUpperCase();
+  let result = document.getElementById("result");
+
+  if (products[code]) {
+    let p = products[code];
+    result.innerHTML = `
+      ✅ <b>Authentic Product</b><br><br>
+      💎 Product: ${p.name}<br>
+      Diamond: ${p.diamond}<br>
+      Gold: ${p.gold}<br>
+      Date: ${p.date}
+    `;
+    result.style.color = "lightgreen";
+  } else {
+    result.innerHTML = "❌ Invalid Product Code";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>
