@@ -110,15 +110,20 @@ async function verify() {
         found = true;
 
  result.innerHTML = `
-  ✅ <b>Authentic Product</b><br><br>
-  💎 Product: ${c[1]?.v || ""}<br>
-  Diamond: ${c[2]?.v || ""}<br>
-  Gold: ${c[3]?.v || ""}<br>
-  Color: ${c[4]?.v || ""}<br>
-  Clarity: ${c[5]?.v || ""}<br>
-  Date: ${c[6]?.v || ""}<br>
-  Status: ${c[8]?.v || "Authentic"}<br><br>
-  <img src="${c[7]?.v || ""}" width="200">
+<div class="card">
+  <h2 style="color:#00ffc3;">✔ Authentic Product</h2>
+
+  <p><b>💎 Product:</b> ${c[1]?.v || ""}</p>
+  <p><b>Diamond:</b> ${c[2]?.v || ""} Carat</p>
+  <p><b>Gold:</b> ${c[3]?.v || ""} K</p>
+  <p><b>Color:</b> ${c[4]?.v || ""}</p>
+  <p><b>Clarity:</b> ${c[5]?.v || ""}</p>
+  <p><b>Date:</b> ${c[6]?.v || ""}</p>
+  <p><b>Status:</b> ${c[8]?.v || "Authentic"}</p>
+
+  <img src="${c[7]?.v || ""}" width="220">
+</div>
+`;
 `;
         break;
       }
