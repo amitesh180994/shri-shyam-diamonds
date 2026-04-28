@@ -501,3 +501,27 @@ nav a {
     width: 90px;
   }
 }
+/* ===== RING IMAGE FIX ===== */
+.ring-img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 12px;
+}
+
+/* HERO ALIGN FIX */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+  .ring-img {
+    max-width: 260px;
+  }
+}
