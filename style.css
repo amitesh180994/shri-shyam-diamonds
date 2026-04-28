@@ -328,3 +328,30 @@ nav a {
     letter-spacing: 2px;
   }
 }
+/* CONTACT FIX */
+.contact {
+  width: 100%;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #061737, #0b2556);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.contact p {
+  font-size: 16px;
+  margin: 8px 0;
+  word-break: break-word;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+  .contact {
+    width: 100%;
+    padding: 30px 15px;
+  }
+
+  .features {
+    grid-template-columns: 1fr 1fr;
+  }
+}
