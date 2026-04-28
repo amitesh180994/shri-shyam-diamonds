@@ -408,3 +408,48 @@ nav a {
   color: #fff;
   letter-spacing: 1px;
 }
+/* ===== PREMIUM TOP HEADER ===== */
+
+header {
+  width: 100%;
+  background: linear-gradient(90deg, #061737, #08224a);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 55px;
+  min-height: 90px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  border: none;
+}
+
+.logo h1,
+.logo p,
+.logo .tagline {
+  display: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
