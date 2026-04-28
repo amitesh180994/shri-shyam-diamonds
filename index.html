@@ -46,50 +46,48 @@
 
 <script>
 
-const products = { 
-  "SSD-20001": {
-  name: "Diamond Ring Premium",
-  diamond: "0.50 Carat",
-  gold: "18K",
-  date: "28-Apr-2026",
-  image: "https://i.imgur.com/yourimage3.jpg"
-},
-  "SSD-10245": {
-    name: "Diamond Ring",
-    diamond: "0.65 Carat",
-    gold: "18K",
-    date: "10-Apr-2026",
-    image: "https://i.imgur.com/yourimage1.jpg"
-  },
-
-  "SSD-10246": {
-    name: "Diamond Necklace",
-    diamond: "1.20 Carat",
-    gold: "22K",
-    date: "15-Apr-2026",
-    image: "https://i.imgur.com/yourimage2.jpg" 
-  },
-};
-
-function verify() {
+<script>
+async function verify() {
   let code = document.getElementById("code").value.trim().toUpperCase();
   let result = document.getElementById("result");
 
-  if (products[code]) {
-    let p = products[code];
-    result.innerHTML = `
-      ✅ <b>Authentic Product</b><br><br>
-      💎 Product: ${p.name}<br>
-      Diamond: ${p.diamond}<br>
-      Gold: ${p.gold}<br>
-      Date: ${p.date}
-    `;
-    result.style.color = "lightgreen";
-  } else {
+  let url = "https://docs.google.com/spreadsheets/d/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/gviz/tq?tqx=out:json";
+
+  let res = await fetch(url);
+  let data = await res.text();
+
+  let json = JSON.parse(data.substr(47).slice(0, -2));
+  let rows = json.table.rows;
+
+  let found = false;
+
+  for (let i = 0; i < rows.length; i++) {
+    let row = rows[i].c;
+    let sheetCode = row[0]?.v?.toString().trim().toUpperCase();
+
+    if (sheetCode === code) {
+      found = true;
+
+      result.innerHTML = `
+        ✅ <b>Authentic Product</b><br><br>
+        💎 Product: ${row[1]?.v || ""}<br>
+        Diamond: ${row[2]?.v || ""}<br>
+        Gold: ${row[3]?.v || ""}<br>
+        Date: ${row[4]?.v || ""}<br>
+        Status: ${row[6]?.v || "Authentic"}<br><br>
+        <img src="${row[5]?.v || ""}" width="200">
+      `;
+      result.style.color = "lightgreen";
+      break;
+    }
+  }
+
+  if (!found) {
     result.innerHTML = "❌ Invalid Product Code";
     result.style.color = "red";
   }
 }
+</script>
 
 </script>
 
