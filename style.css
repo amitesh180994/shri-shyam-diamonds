@@ -567,3 +567,25 @@ nav a {
   transform: scale(1.05);
   background: #0b2556;
 }
+/* ===== FORCE EFFECTS (LAST ME HI DALNA) ===== */
+
+/* Ring glow + zoom */
+.ring-img {
+  box-shadow: 0 0 30px rgba(212,175,55,0.6) !important;
+  transition: all 0.3s ease !important;
+}
+
+.ring-img:hover {
+  transform: scale(1.08) !important;
+}
+
+/* Button shadow + hover */
+.verify-row button {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+.verify-row button:hover {
+  transform: scale(1.05) !important;
+  background: #0b2556 !important;
+}
