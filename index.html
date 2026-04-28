@@ -70,7 +70,7 @@ async function verify() {
       if (sheetCode === code) {
         found = true;
 
-          result.innerHTML = `
+ result.innerHTML = `
   ✅ <b>Authentic Product</b><br><br>
   💎 Product: ${c[1]?.v || ""}<br>
   Diamond: ${c[2]?.v || ""}<br>
@@ -81,7 +81,6 @@ async function verify() {
   Status: ${c[8]?.v || "Authentic"}<br><br>
   <img src="${c[7]?.v || ""}" width="200">
 `;
-        result.style.color = "lightgreen";
         break;
       }
     }
