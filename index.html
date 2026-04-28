@@ -1,142 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Shri Shyam Diamonds - Verification</title>
-  <style>
-body {
-  background: linear-gradient(135deg, #050505, #111827, #1f2937);
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
-  color: white;
-}
-
-h1 {
-  font-size: 36px;
-  margin-top: 45px;
-  color: #f5f5f5;
-}
-
-h3 {
-  color: #d4af37;
-  margin-bottom: 35px;
-}
-
-.box {
-  background: rgba(255,255,255,0.06);
-  padding: 30px;
-  border-radius: 18px;
-  width: 420px;
-  margin: auto;
-  box-shadow: 0 0 25px rgba(212,175,55,0.35);
-}
-
-input {
-  padding: 13px;
-  width: 65%;
-  border-radius: 8px;
-  border: none;
-}
-
-button {
-  padding: 13px 20px;
-  background: #d4af37;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #ffcc33;
-}
-
-.result {
-  margin-top: 25px;
-}
-
-.card {
-  margin-top: 25px;
-  padding: 22px;
-  background: rgba(0,0,0,0.65);
-  border-radius: 15px;
-  box-shadow: 0 0 18px rgba(212,175,55,0.45);
-}
-
-.card img {
-  width: 240px;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 0 15px gold;
-}
-</style>
-  </style>
+  <title>Shri Shyam Diamonds Verification</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>💎 Shri Shyam Diamonds</h1>
-<h3>Diamond Product Verification</h3>
+<header class="navbar">
+  <div class="logo">💎 SSD <span>Shri Shyam Diamonds</span></div>
+  <nav>
+    <a href="#">HOME</a>
+    <a href="#verify">VERIFY</a>
+    <a href="#">CONTACT</a>
+  </nav>
+</header>
 
-<div class="box">
-  <input type="text" id="code" placeholder="Enter Verification Code">
-  <button onclick="verify()">VERIFY</button>
+<section class="hero">
+  <div>
+    <h1>VERIFY.<br>TRUST.<br><span>BE ASSURED.</span></h1>
+    <p>100% Authentic Diamond Verification</p>
+  </div>
+</section>
 
-  <div class="result" id="result"></div>
-</div>
+<section class="verify-box" id="verify">
+  <h2>VERIFY YOUR DIAMOND</h2>
 
-<script>
-async function verify() {
-  let code = document.getElementById("code").value.trim().toUpperCase();
-  let result = document.getElementById("result");
+  <input type="text" id="codeInput" placeholder="Enter Code (SSD-10245)">
+  <br><br>
+  <button onclick="verifyProduct()">VERIFY NOW</button>
 
-  result.innerHTML = "Checking...";
+  <div id="result"></div>
+</section>
 
-  try {
-    let url = "https://docs.google.com/spreadsheets/d/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/gviz/tq?tqx=out:json";
+<script src="script.js"></script>
 
-    let res = await fetch(url);
-    let text = await res.text();
-
-    let jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-    let json = JSON.parse(jsonText);
-    let rows = json.table.rows;
-
-    let found = false;
-
-    for (let i = 0; i < rows.length; i++) {
-      let c = rows[i].c;
-      let sheetCode = c[0]?.v?.toString().trim().toUpperCase();
-
-      if (sheetCode === code) {
-        found = true;
-
- result.innerHTML = `
-<div class="card">
-  <h2 style="color:#00ffc3;">✔ Authentic Product</h2>
-
-  <p><b>💎 Product:</b> ${c[1]?.v || ""}</p>
-  <p><b>Diamond:</b> ${c[2]?.v || ""} Carat</p>
-  <p><b>Gold:</b> ${c[3]?.v || ""} K</p>
-  <p><b>Color:</b> ${c[4]?.v || ""}</p>
-  <p><b>Clarity:</b> ${c[5]?.v || ""}</p>
-  <p><b>Date:</b> ${c[6]?.v || ""}</p>
-  <p><b>Status:</b> ${c[8]?.v || "Authentic"}</p>
-
-  <img src="${c[7]?.v || ""}" width="220">
-</div>
-`;
-`;
-        break;
-      }
-    }
-
-    if (!found) {
-      result.innerHTML = "❌ Invalid Product Code";
-      result.style.color = "red";
-    }
-
-  } catch (error) {
-    result.innerHTML = "⚠️ Sheet connection error";
-    result.style.color = "orange";
-  }
-}
+</body>
+</html>
 </script>
