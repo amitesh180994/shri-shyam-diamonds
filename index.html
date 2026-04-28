@@ -49,44 +49,48 @@ async function verify() {
   let code = document.getElementById("code").value.trim().toUpperCase();
   let result = document.getElementById("result");
 
-  let url = "https://docs.google.com/spreadsheets/d/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/gviz/tq?tqx=out:json";
+  result.innerHTML = "Checking...";
 
-  let res = await fetch(url);
-  let data = await res.text();
+  try {
+    let url = "https://docs.google.com/spreadsheets/d/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/gviz/tq?tqx=out:json";
 
-  let json = JSON.parse(data.substr(47).slice(0, -2));
-  let rows = json.table.rows;
+    let res = await fetch(url);
+    let text = await res.text();
 
-  let found = false;
+    let jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+    let json = JSON.parse(jsonText);
+    let rows = json.table.rows;
 
-  for (let i = 0; i < rows.length; i++) {
-    let row = rows[i].c;
-    let sheetCode = row[0]?.v?.toString().trim().toUpperCase();
+    let found = false;
 
-    if (sheetCode === code) {
-      found = true;
+    for (let i = 0; i < rows.length; i++) {
+      let c = rows[i].c;
+      let sheetCode = c[0]?.v?.toString().trim().toUpperCase();
 
-      result.innerHTML = `
-        ✅ <b>Authentic Product</b><br><br>
-        💎 Product: ${row[1]?.v || ""}<br>
-        Diamond: ${row[2]?.v || ""}<br>
-        Gold: ${row[3]?.v || ""}<br>
-        Date: ${row[4]?.v || ""}<br>
-        Status: ${row[6]?.v || "Authentic"}<br><br>
-        <img src="${row[5]?.v || ""}" width="200">
-      `;
-      result.style.color = "lightgreen";
-      break;
+      if (sheetCode === code) {
+        found = true;
+
+        result.innerHTML = `
+          ✅ <b>Authentic Product</b><br><br>
+          💎 Product: ${c[1]?.v || ""}<br>
+          Diamond: ${c[2]?.v || ""}<br>
+          Gold: ${c[3]?.v || ""}<br>
+          Date: ${c[4]?.v || ""}<br>
+          Status: ${c[6]?.v || "Authentic"}<br><br>
+        `;
+        result.style.color = "lightgreen";
+        break;
+      }
     }
+
+    if (!found) {
+      result.innerHTML = "❌ Invalid Product Code";
+      result.style.color = "red";
+    }
+
+  } catch (error) {
+    result.innerHTML = "⚠️ Sheet connection error";
+    result.style.color = "orange";
   }
-
-  if (!found) {
-    result.innerHTML = "❌ Invalid Product Code";
-    result.style.color = "red";
-  }
+}
 </script>
-
-</script>
-
-</body>
-</html>
