@@ -525,3 +525,21 @@ nav a {
     max-width: 260px;
   }
 }
+/* ===== FORCE RING IMAGE SIZE FIX ===== */
+
+.hero-right {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-right img,
+.ring-img {
+  width: 85% !important;
+  max-width: 320px !important;
+  height: auto !important;
+  display: block !important;
+  margin: 25px auto !important;
+  border-radius: 14px;
+  object-fit: contain !important;
+}
