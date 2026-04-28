@@ -377,4 +377,34 @@ nav a {
   font-size: 16px;
   margin: 8px 0;
   word-break: break-word;
+  }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-img {
+  width: 60px;
+  height: auto;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 28px;
+  color: gold;
+  letter-spacing: 2px;
+}
+
+.logo p {
+  margin: 0;
+  font-size: 12px;
+  color: #d4af37;
+  letter-spacing: 2px;
+}
+
+.tagline {
+  font-size: 10px;
+  color: #fff;
+  letter-spacing: 1px;
 }
