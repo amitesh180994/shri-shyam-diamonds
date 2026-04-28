@@ -310,3 +310,27 @@ nav a {
     border-bottom: 1px solid #e5e5e5;
   }
 }
+@media (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 10px;
+  }
+
+  .logo {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  nav {
+    width: 100%;
+    gap: 18px;
+  }
+
+  nav a {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+}
