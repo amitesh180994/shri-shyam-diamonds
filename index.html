@@ -71,13 +71,17 @@ async function verify() {
         found = true;
 
         result.innerHTML = `
-          ✅ <b>Authentic Product</b><br><br>
-          💎 Product: ${c[1]?.v || ""}<br>
-          Diamond: ${c[2]?.v || ""}<br>
-          Gold: ${c[3]?.v || ""}<br>
-          Date: ${c[4]?.v || ""}<br>
-          Status: ${c[6]?.v || "Authentic"}<br><br>
-        `;
+          result.innerHTML = `
+  ✅ <b>Authentic Product</b><br><br>
+  💎 Product: ${c[1]?.v || ""}<br>
+  Diamond: ${c[2]?.v || ""}<br>
+  Gold: ${c[3]?.v || ""}<br>
+  Color: ${c[4]?.v || ""}<br>
+  Clarity: ${c[5]?.v || ""}<br>
+  Date: ${c[6]?.v || ""}<br>
+  Status: ${c[8]?.v || "Authentic"}<br><br>
+  <img src="${c[7]?.v || ""}" width="200">
+`;
         result.style.color = "lightgreen";
         break;
       }
