@@ -453,3 +453,51 @@ nav a {
   font-weight: 700;
   letter-spacing: 1px;
 }
+/* ===== FINAL HEADER FIX ===== */
+
+header {
+  width: 100%;
+  background: linear-gradient(90deg, #061737, #08224a);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+/* logo */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width: 110px;
+}
+
+/* nav */
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 🔥 MOBILE FIX */
+@media (max-width: 768px) {
+  header {
+    flex-direction: row;
+  }
+
+  nav {
+    gap: 12px;
+  }
+
+  .logo-img {
+    width: 90px;
+  }
+}
