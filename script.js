@@ -4,9 +4,20 @@ function verifyProduct() {
   var code = document.getElementById("codeInput").value.trim().toUpperCase();
   var result = document.getElementById("result");
 
+  if (!code) {
+    result.innerHTML = "<h3 style='color:red;'>Please enter verification code</h3>";
+    return;
+  }
+
   result.innerHTML = "Checking...";
 
-  window.showResult = function(data) {
+  setTimeout(function () {
+    if (result.innerHTML === "Checking...") {
+      result.innerHTML = "⚠️ Loading issue... retry";
+    }
+  }, 5000);
+
+  window.showResult = function (data) {
     if (data.status === "found") {
       var imgHtml = "";
 
@@ -33,19 +44,27 @@ function verifyProduct() {
 
   var script = document.createElement("script");
   script.id = "jsonp-script";
-  script.src = API_URL + "?code=" + encodeURIComponent(code) + "&callback=showResult";
+  script.src =
+    API_URL +
+    "?code=" +
+    encodeURIComponent(code) +
+    "&callback=showResult&_=" +
+    new Date().getTime();
 
   document.body.appendChild(script);
 }
 
-/* QR scan / direct link auto verify */
+/* QR / direct link auto verify */
 window.onload = function () {
   var params = new URLSearchParams(window.location.search);
   var code = params.get("code");
 
   if (code) {
     document.getElementById("codeInput").value = code.toUpperCase();
-    verifyProduct();
+
+    setTimeout(function () {
+      verifyProduct();
+    }, 500);
 
     var verifySection = document.getElementById("verify");
     if (verifySection) {
