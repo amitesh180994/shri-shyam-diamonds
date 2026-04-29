@@ -52,3 +52,12 @@ nav a:hover {
     gap: 15px;
   }
 }
+/* SAFE LOGO FIX */
+.logo-img {
+  width: 140px !important;
+  height: auto !important;
+}
+
+header {
+  padding: 10px 20px !important;
+}
