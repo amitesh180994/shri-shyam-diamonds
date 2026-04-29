@@ -4,10 +4,9 @@ function verifyProduct() {
   var code = document.getElementById("codeInput").value.trim().toUpperCase();
 
   if (!code) {
-    document.getElementById("result").innerHTML = "<h3 style='color:red;'>Please enter verification code</h3>";
+    alert("Enter code");
     return;
   }
 
-  // mobile-safe direct open
-  window.location.href = API_URL + "?code=" + encodeURIComponent(code);
+  window.open(API_URL + "?code=" + encodeURIComponent(code), "_blank");
 }
