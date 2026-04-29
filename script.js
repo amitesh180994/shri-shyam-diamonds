@@ -7,9 +7,7 @@ function verifyProduct() {
   result.innerHTML = "Checking...";
 
   window.showResult = function(data) {
-
     if (data.status === "found") {
-
       var imgHtml = "";
 
       if (data.image) {
@@ -25,7 +23,6 @@ function verifyProduct() {
         '<p><b>Clarity:</b> ' + data.clarity + '</p>' +
         '<p><b>Date:</b> ' + data.date + '</p>' +
         imgHtml;
-
     } else {
       result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
     }
@@ -40,3 +37,19 @@ function verifyProduct() {
 
   document.body.appendChild(script);
 }
+
+/* QR scan / direct link auto verify */
+window.onload = function () {
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get("code");
+
+  if (code) {
+    document.getElementById("codeInput").value = code.toUpperCase();
+    verifyProduct();
+
+    var verifySection = document.getElementById("verify");
+    if (verifySection) {
+      verifySection.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+};
