@@ -11,50 +11,51 @@ function verifyProduct() {
 
   result.innerHTML = "Checking...";
 
-  fetch(API_URL + "?code=" + encodeURIComponent(code))
-    .then(res => res.json())
-    .then(data => {
+  var old = document.getElementById("jsonp-script");
+  if (old) old.remove();
 
-      if (data.status === "found") {
+  var script = document.createElement("script");
+  script.id = "jsonp-script";
+  script.src =
+    API_URL +
+    "?code=" + encodeURIComponent(code) +
+    "&callback=showResult" +
+    "&t=" + new Date().getTime();
 
-        var imgHtml = data.image ? '<img src="' + data.image + '" class="result-img">' : "";
+  script.onerror = function () {
+    result.innerHTML = "⚠️ Loading error. Please refresh and try again.";
+  };
 
-        result.innerHTML =
-          '<div class="result-card">' +
+  document.body.appendChild(script);
+}
 
-            '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
+function showResult(data) {
+  var result = document.getElementById("result");
 
-            '<div class="result-layout">' +
+  if (data.status === "found") {
+    var imgHtml = data.image ? '<img src="' + data.image + '" class="result-img">' : "";
 
-              '<div class="result-table">' +
+    result.innerHTML =
+      '<div class="result-card">' +
+        '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
 
-                '<div><span>Product</span><b>' + data.product + '</b></div>' +
-                '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
+        '<div class="result-layout">' +
+          '<div class="result-table">' +
+            '<div><span>Product</span><b>' + data.product + '</b></div>' +
+            '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
+            '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
+            '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
+            '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
+            '<div><span>Date</span><b>' + data.date + '</b></div>' +
+          '</div>' +
+          imgHtml +
+        '</div>' +
 
-                '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
-                '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
-
-                '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
-                '<div><span>Date</span><b>' + data.date + '</b></div>' +
-
-              '</div>' +
-
-              imgHtml +
-
-            '</div>' +
-
-            '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
-
-          '</div>';
-
-      } else {
-        result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
-      }
-
-    })
-    .catch(() => {
-      result.innerHTML = "⚠️ Connection error. Try again.";
-    });
+        '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
+      '</div>';
+  } else {
+    result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
+  }
 }
 
 /* QR AUTO VERIFY */
@@ -64,6 +65,57 @@ window.onload = function () {
 
   if (code) {
     document.getElementById("codeInput").value = code.toUpperCase();
-    setTimeout(() => verifyProduct(), 500);
+
+    setTimeout(function () {
+      verifyProduct();
+    }, 700);
+
+    var verifySection = document.getElementById("verify");
+    if (verifySection) {
+      verifySection.scrollIntoView({ behavior: "smooth" });
+    }
   }
 };
+
+function downloadCertificate() {
+  var card = document.querySelector(".result-card");
+
+  if (!card) {
+    alert("Please verify product first");
+    return;
+  }
+
+  var table = card.querySelector(".result-table").outerHTML;
+  var img = card.querySelector("img") ? card.querySelector("img").outerHTML : "";
+
+  var win = window.open("", "", "width=900,height=750");
+
+  win.document.write(`
+    <html>
+    <head>
+      <title>Shri Shyam Diamonds Certificate</title>
+      <style>
+        body { font-family: Arial; padding: 30px; text-align: center; background: #f5f5f5; }
+        .certificate { max-width: 750px; margin: auto; padding: 30px; border: 4px solid #c9a24d; border-radius: 18px; background: #fff; }
+        h1 { color: #061737; }
+        .result-table { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #ddd; margin-top: 20px; }
+        .result-table div { padding: 14px; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; }
+        .result-img { width: 180px; margin-top: 20px; border-radius: 12px; }
+        @media print { button { display:none; } }
+      </style>
+    </head>
+    <body>
+      <div class="certificate">
+        <h1>Shri Shyam Diamonds</h1>
+        <p>Certified • Tested • Trusted</p>
+        ${table}
+        ${img}
+        <br><br>
+        <button onclick="window.print()">Print / Save as PDF</button>
+      </div>
+    </body>
+    </html>
+  `);
+
+  win.document.close();
+}
