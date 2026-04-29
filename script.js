@@ -16,6 +16,7 @@ function verifyProduct() {
         <p><b>Colour:</b> ${data.colour}</p>
         <p><b>Clarity:</b> ${data.clarity}</p>
         <p><b>Date:</b> ${data.date}</p>
+        ${data.image ? `<img src="${data.image}" class="result-img">` : ""}
       `;
     } else {
       result.innerHTML = "<h3 style='color:red;'>❌ Invalid Product</h3>";
