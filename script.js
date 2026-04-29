@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/exec";
+onst API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/exec";
 
 function verifyProduct() {
   var code = document.getElementById("codeInput").value.trim().toUpperCase();
@@ -11,6 +11,31 @@ function verifyProduct() {
 
   result.innerHTML = "Checking...";
 
+  window.showResult = function (data) {
+    if (data.status === "found") {
+      var imgHtml = data.image ? '<img src="' + data.image + '" class="result-img">' : "";
+
+      result.innerHTML =
+        '<div class="result-card">' +
+          '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
+          '<div class="result-layout">' +
+            '<div class="result-table">' +
+              '<div><span>Product</span><b>' + data.product + '</b></div>' +
+              '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
+              '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
+              '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
+              '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
+              '<div><span>Date</span><b>' + data.date + '</b></div>' +
+            '</div>' +
+            imgHtml +
+          '</div>' +
+          '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
+        '</div>';
+    } else {
+      result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
+    }
+  };
+
   var old = document.getElementById("jsonp-script");
   if (old) old.remove();
 
@@ -20,42 +45,15 @@ function verifyProduct() {
     API_URL +
     "?code=" + encodeURIComponent(code) +
     "&callback=showResult" +
-    "&t=" + new Date().getTime();
-
-  script.onerror = function () {
-    result.innerHTML = "⚠️ Loading error. Please refresh and try again.";
-  };
+    "&t=" + Date.now();
 
   document.body.appendChild(script);
-}
 
-function showResult(data) {
-  var result = document.getElementById("result");
-
-  if (data.status === "found") {
-    var imgHtml = data.image ? '<img src="' + data.image + '" class="result-img">' : "";
-
-    result.innerHTML =
-      '<div class="result-card">' +
-        '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
-
-        '<div class="result-layout">' +
-          '<div class="result-table">' +
-            '<div><span>Product</span><b>' + data.product + '</b></div>' +
-            '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
-            '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
-            '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
-            '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
-            '<div><span>Date</span><b>' + data.date + '</b></div>' +
-          '</div>' +
-          imgHtml +
-        '</div>' +
-
-        '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
-      '</div>';
-  } else {
-    result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
-  }
+  setTimeout(function () {
+    if (result.innerHTML === "Checking...") {
+      result.innerHTML = "⚠️ Please refresh and try again.";
+    }
+  }, 8000);
 }
 
 /* QR AUTO VERIFY */
