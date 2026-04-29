@@ -1,26 +1,30 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/dev";
+const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/exec";
 
-function doGet(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  var data = sheet.getDataRange().getValues();
-  var code = e.parameter.code;
+function verifyProduct() {
+  let code = document.getElementById("codeInput").value.trim().toUpperCase();
+  let result = document.getElementById("result");
 
-  for (var i = 1; i < data.length; i++) {
-    if (String(data[i][0]).trim().toUpperCase() == String(code).trim().toUpperCase()) {
-      return ContentService.createTextOutput(JSON.stringify({
-        status: "found",
-        product: data[i][1],
-        diamond: data[i][2],
-        gold: data[i][3],
-        colour: data[i][4],
-        clarity: data[i][5],
-        date: data[i][6],
-        image: data[i][7]
-      })).setMimeType(ContentService.MimeType.JSON);
-    }
-  }
+  result.innerHTML = "Checking...";
 
-  return ContentService.createTextOutput(JSON.stringify({
-    status: "not_found"
-  })).setMimeType(ContentService.MimeType.JSON);
+  fetch(API_URL + "?code=" + encodeURIComponent(code))
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "found") {
+        result.innerHTML = `
+          <h3 style="color:green;">✅ Authentic</h3>
+          <p><b>Product:</b> ${data.product}</p>
+          <p><b>Diamond:</b> ${data.diamond}</p>
+          <p><b>Gold:</b> ${data.gold}</p>
+          <p><b>Colour:</b> ${data.colour}</p>
+          <p><b>Clarity:</b> ${data.clarity}</p>
+          <p><b>Date:</b> ${data.date}</p>
+          <img src="${data.image}" width="200">
+        `;
+      } else {
+        result.innerHTML = "<h3 style='color:red;'>❌ Invalid Product</h3>";
+      }
+    })
+    .catch(() => {
+      result.innerHTML = "⚠️ Error connecting";
+    });
 }
