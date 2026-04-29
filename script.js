@@ -88,7 +88,7 @@ window.onload = function () {
   }
 };
 
-/* CLEAN CERTIFICATE DOWNLOAD */
+/* PREMIUM CERTIFICATE WITH LOGO */
 function downloadCertificate() {
   var card = document.querySelector(".result-card");
 
@@ -105,31 +105,38 @@ function downloadCertificate() {
   win.document.write(`
     <html>
     <head>
-      <title>COH Diamond Certificate</title>
+      <title>Shri Shyam Diamonds Certificate</title>
       <style>
         body {
           font-family: Arial, sans-serif;
           padding: 30px;
           text-align: center;
-          color: #071431;
+          background: #f5f5f5;
         }
 
         .certificate {
           max-width: 750px;
           margin: auto;
           padding: 30px;
-          border: 3px solid #c9a24d;
-          border-radius: 16px;
+          border: 4px solid #c9a24d;
+          border-radius: 18px;
+          background: #ffffff;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+          width: 160px;
+          margin-bottom: 10px;
         }
 
         h1 {
           color: #061737;
-          margin-bottom: 5px;
+          margin: 5px 0;
         }
 
         h2 {
           color: green;
-          margin-bottom: 25px;
+          margin-bottom: 20px;
         }
 
         .result-table {
@@ -163,7 +170,7 @@ function downloadCertificate() {
         }
 
         .footer {
-          margin-top: 30px;
+          margin-top: 25px;
           font-size: 13px;
           color: #555;
         }
@@ -175,9 +182,13 @@ function downloadCertificate() {
     </head>
 
     <body>
+
       <div class="certificate">
 
-        <h1>COH Gemological Centers</h1>
+        <!-- LOGO -->
+        <img src="IMG_4996.jpeg" class="logo">
+
+        <h1>Shri Shyam Diamonds</h1>
         <p>Certified • Tested • Trusted</p>
 
         ${table}
@@ -188,10 +199,11 @@ function downloadCertificate() {
           <p>Final grading is subject to COH Gemological policies.</p>
         </div>
 
-        <br><br>
+        <br>
         <button onclick="window.print()">Print / Save as PDF</button>
 
       </div>
+
     </body>
     </html>
   `);
