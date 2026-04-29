@@ -4,7 +4,7 @@
 
 // API endpoint for verification. Replace with your deployed Google Apps Script
 // URL. Do not include query parameters here.
-const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxeU9ZZHprmFFdMuvFZGBKlfnKgAHWV8oG-2aXkTwpM0Oryv7ZI8tX47oH9yyZLwq2-dw/exec;
 
 /**
  * Handles click event for "Verify Now" button.  Fetches data from the
