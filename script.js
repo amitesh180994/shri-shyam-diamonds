@@ -1,4 +1,4 @@
-const API_URL = "YAHAN_APNA_GOOGLE_SCRIPT_URL";
+const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/dev";
 
 function verifyProduct() {
   let code = document.getElementById("codeInput").value.trim().toUpperCase();
@@ -11,12 +11,17 @@ function verifyProduct() {
     .then(data => {
       if (data.status === "found") {
         result.innerHTML = `
-          <h3>✅ Authentic</h3>
-          <p><b>${data.productName}</b></p>
-          <p>${data.diamondWeight} | ${data.goldPurity}</p>
+          <h3 style="color:green;">✔ Authentic</h3>
+          <p><b>Product:</b> ${data.product}</p>
+          <p><b>Diamond:</b> ${data.diamond}</p>
+          <p><b>Gold:</b> ${data.gold}</p>
+          <p><b>Colour:</b> ${data.colour}</p>
+          <p><b>Clarity:</b> ${data.clarity}</p>
+          <p><b>Date:</b> ${data.date}</p>
+          <img src="${data.image}" width="200">
         `;
       } else {
-        result.innerHTML = "❌ Invalid Code";
+        result.innerHTML = "<h3 style='color:red;'>❌ Invalid Product</h3>";
       }
     })
     .catch(() => {
