@@ -589,3 +589,10 @@ nav a {
   transform: scale(1.05) !important;
   background: #0b2556 !important;
 }
+.result-img {
+  width: 220px;
+  max-width: 100%;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(212,175,55,0.4);
+}
