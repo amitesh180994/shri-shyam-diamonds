@@ -11,44 +11,28 @@ function verifyProduct() {
 
   result.innerHTML = "Checking...";
 
-  window.showResult = function (data) {
+  var callbackName = "showResult_" + Date.now();
 
+  window[callbackName] = function (data) {
     if (data.status === "found") {
-
-      var imgHtml = "";
-
-      if (data.image) {
-        imgHtml = '<img src="' + data.image + '" class="result-img">';
-      }
+      var imgHtml = data.image ? '<img src="' + data.image + '" class="result-img">' : "";
 
       result.innerHTML =
         '<div class="result-card">' +
-
           '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
-
           '<div class="result-layout">' +
-
             '<div class="result-table">' +
-
               '<div><span>Product</span><b>' + data.product + '</b></div>' +
               '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
-
               '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
               '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
-
               '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
               '<div><span>Date</span><b>' + data.date + '</b></div>' +
-
             '</div>' +
-
             imgHtml +
-
           '</div>' +
-
           '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
-
         '</div>';
-
     } else {
       result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
     }
@@ -59,12 +43,11 @@ function verifyProduct() {
 
   var script = document.createElement("script");
   script.id = "jsonp-script";
-  script.src =
-    API_URL +
-    "?code=" +
-    encodeURIComponent(code) +
-    "&callback=showResult&_=" +
-    new Date().getTime();
+  script.src = API_URL + "?code=" + encodeURIComponent(code) + "&callback=" + callbackName + "&_=" + Date.now();
+
+  script.onerror = function () {
+    result.innerHTML = "⚠️ Mobile loading error. Please refresh and try again.";
+  };
 
   document.body.appendChild(script);
 }
@@ -79,7 +62,7 @@ window.onload = function () {
 
     setTimeout(function () {
       verifyProduct();
-    }, 400);
+    }, 700);
 
     var verifySection = document.getElementById("verify");
     if (verifySection) {
@@ -88,7 +71,6 @@ window.onload = function () {
   }
 };
 
-/* PREMIUM CERTIFICATE WITH LOGO */
 function downloadCertificate() {
   var card = document.querySelector(".result-card");
 
@@ -97,8 +79,8 @@ function downloadCertificate() {
     return;
   }
 
-  const table = card.querySelector(".result-table").outerHTML;
-  const img = card.querySelector("img") ? card.querySelector("img").outerHTML : "";
+  var table = card.querySelector(".result-table").outerHTML;
+  var img = card.querySelector("img") ? card.querySelector("img").outerHTML : "";
 
   var win = window.open("", "", "width=900,height=750");
 
@@ -107,103 +89,24 @@ function downloadCertificate() {
     <head>
       <title>Shri Shyam Diamonds Certificate</title>
       <style>
-        body {
-          font-family: Arial, sans-serif;
-          padding: 30px;
-          text-align: center;
-          background: #f5f5f5;
-        }
-
-        .certificate {
-          max-width: 750px;
-          margin: auto;
-          padding: 30px;
-          border: 4px solid #c9a24d;
-          border-radius: 18px;
-          background: #ffffff;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .logo {
-          width: 160px;
-          margin-bottom: 10px;
-        }
-
-        h1 {
-          color: #061737;
-          margin: 5px 0;
-        }
-
-        h2 {
-          color: green;
-          margin-bottom: 20px;
-        }
-
-        .result-table {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          border: 1px solid #ddd;
-          margin-top: 20px;
-        }
-
-        .result-table div {
-          padding: 14px;
-          border-bottom: 1px solid #ddd;
-          border-right: 1px solid #ddd;
-        }
-
-        .result-table span {
-          display: block;
-          font-size: 12px;
-          color: #777;
-          margin-bottom: 5px;
-        }
-
-        .result-table b {
-          font-size: 16px;
-        }
-
-        .result-img {
-          width: 180px;
-          margin-top: 20px;
-          border-radius: 12px;
-        }
-
-        .footer {
-          margin-top: 25px;
-          font-size: 13px;
-          color: #555;
-        }
-
-        @media print {
-          button { display: none; }
-        }
+        body { font-family: Arial; padding: 30px; text-align: center; background: #f5f5f5; }
+        .certificate { max-width: 750px; margin: auto; padding: 30px; border: 4px solid #c9a24d; border-radius: 18px; background: #fff; }
+        h1 { color: #061737; }
+        .result-table { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #ddd; margin-top: 20px; }
+        .result-table div { padding: 14px; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; }
+        .result-img { width: 180px; margin-top: 20px; border-radius: 12px; }
+        @media print { button { display:none; } }
       </style>
     </head>
-
     <body>
-
       <div class="certificate">
-
-        <!-- LOGO -->
-        <img src="IMG_4996.jpeg" class="logo">
-
         <h1>Shri Shyam Diamonds</h1>
         <p>Certified • Tested • Trusted</p>
-
         ${table}
         ${img}
-
-        <div class="footer">
-          <p>This certificate is generated from online diamond verification system.</p>
-          <p>Final grading is subject to COH Gemological policies.</p>
-        </div>
-
-        <br>
+        <br><br>
         <button onclick="window.print()">Print / Save as PDF</button>
-
       </div>
-
     </body>
     </html>
   `);
