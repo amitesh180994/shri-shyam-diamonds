@@ -12,7 +12,9 @@ function verifyProduct() {
   result.innerHTML = "Checking...";
 
   window.showResult = function (data) {
+
     if (data.status === "found") {
+
       var imgHtml = "";
 
       if (data.image) {
@@ -21,21 +23,30 @@ function verifyProduct() {
 
       result.innerHTML =
         '<div class="result-card">' +
+
           '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
 
           '<div class="result-layout">' +
+
             '<div class="result-table">' +
+
               '<div><span>Product</span><b>' + data.product + '</b></div>' +
               '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
+
               '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
               '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
+
               '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
               '<div><span>Date</span><b>' + data.date + '</b></div>' +
+
             '</div>' +
+
             imgHtml +
+
           '</div>' +
 
           '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
+
         '</div>';
 
     } else {
@@ -77,7 +88,7 @@ window.onload = function () {
   }
 };
 
-/* DOWNLOAD / PRINT CERTIFICATE */
+/* CLEAN CERTIFICATE DOWNLOAD */
 function downloadCertificate() {
   var card = document.querySelector(".result-card");
 
@@ -85,6 +96,9 @@ function downloadCertificate() {
     alert("Please verify product first");
     return;
   }
+
+  const table = card.querySelector(".result-table").outerHTML;
+  const img = card.querySelector("img") ? card.querySelector("img").outerHTML : "";
 
   var win = window.open("", "", "width=900,height=750");
 
@@ -148,10 +162,6 @@ function downloadCertificate() {
           border-radius: 12px;
         }
 
-        .download-btn {
-          display: none;
-        }
-
         .footer {
           margin-top: 30px;
           font-size: 13px;
@@ -159,27 +169,28 @@ function downloadCertificate() {
         }
 
         @media print {
-          button {
-            display: none;
-          }
+          button { display: none; }
         }
       </style>
     </head>
 
     <body>
       <div class="certificate">
+
         <h1>COH Gemological Centers</h1>
         <p>Certified • Tested • Trusted</p>
 
-        ${card.innerHTML}
+        ${table}
+        ${img}
 
         <div class="footer">
           <p>This certificate is generated from online diamond verification system.</p>
           <p>Final grading is subject to COH Gemological policies.</p>
         </div>
 
-        <br>
+        <br><br>
         <button onclick="window.print()">Print / Save as PDF</button>
+
       </div>
     </body>
     </html>
