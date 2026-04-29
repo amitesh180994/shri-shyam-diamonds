@@ -7,10 +7,9 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/exec";
 
 function verifyProduct() {
-  const codeInput = document.getElementById("codeInput");
-  const result = document.getElementById("result");
-
-  const code = codeInput.value.trim().toUpperCase();
+  var codeInput = document.getElementById("codeInput");
+  var result = document.getElementById("result");
+  var code = codeInput.value.trim().toUpperCase();
 
   if (!code) {
     alert("Please enter verification code");
@@ -19,19 +18,15 @@ function verifyProduct() {
 
   result.innerHTML = "<p style='padding:15px;font-weight:bold;'>Checking...</p>";
 
-  const url = API_URL + "?code=" + encodeURIComponent(code);
-
-  fetch(url)
-    .then(res => res.text())
-    .then(html => {
-      result.innerHTML = html;
+  fetch(API_URL + "?code=" + encodeURIComponent(code))
+    .then(function(res) {
+      return res.text();
     })
-    .catch(error => {
-      result.innerHTML = `
-        <p style="color:red;font-weight:bold;padding:15px;">
-          Connection error. Please try again.
-        </p>
-      `;
+    .then(function(data) {
+      result.innerHTML = data;
+    })
+    .catch(function(error) {
+      result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Connection error. Please try again.</p>";
       console.log(error);
     });
 }
