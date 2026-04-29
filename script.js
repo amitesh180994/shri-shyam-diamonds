@@ -7,15 +7,17 @@ function verifyProduct() {
   result.innerHTML = "Checking...";
 
   window.showResult = function(data) {
+
     if (data.status === "found") {
+
       var imgHtml = "";
 
-      if (data.image && data.image !== "{}") {
+      if (data.image) {
         imgHtml = '<img src="' + data.image + '" class="result-img">';
       }
 
       result.innerHTML =
-        '<h3 style="color:green;">✅ Authentic</h3>' +
+        '<h2 style="color:green;">✅ Authentic</h2>' +
         '<p><b>Product:</b> ' + data.product + '</p>' +
         '<p><b>Diamond:</b> ' + data.diamond + '</p>' +
         '<p><b>Gold:</b> ' + data.gold + '</p>' +
@@ -23,8 +25,9 @@ function verifyProduct() {
         '<p><b>Clarity:</b> ' + data.clarity + '</p>' +
         '<p><b>Date:</b> ' + data.date + '</p>' +
         imgHtml;
+
     } else {
-      result.innerHTML = "<h3 style='color:red;'>❌ Invalid Product</h3>";
+      result.innerHTML = "<h2 style='color:red;'>❌ Invalid Product</h2>";
     }
   };
 
@@ -34,5 +37,6 @@ function verifyProduct() {
   var script = document.createElement("script");
   script.id = "jsonp-script";
   script.src = API_URL + "?code=" + encodeURIComponent(code) + "&callback=showResult";
+
   document.body.appendChild(script);
 }
