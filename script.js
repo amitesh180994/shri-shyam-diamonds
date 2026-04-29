@@ -6,25 +6,23 @@ function verifyProduct() {
 
   result.innerHTML = "Checking...";
 
-  fetch(API_URL + "?code=" + encodeURIComponent(code))
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === "found") {
-        result.innerHTML = `
-          <h3 style="color:green;">✅ Authentic</h3>
-          <p><b>Product:</b> ${data.product}</p>
-          <p><b>Diamond:</b> ${data.diamond}</p>
-          <p><b>Gold:</b> ${data.gold}</p>
-          <p><b>Colour:</b> ${data.colour}</p>
-          <p><b>Clarity:</b> ${data.clarity}</p>
-          <p><b>Date:</b> ${data.date}</p>
-          <img src="${data.image}" width="200">
-        `;
-      } else {
-        result.innerHTML = "<h3 style='color:red;'>❌ Invalid Product</h3>";
-      }
-    })
-    .catch(() => {
-      result.innerHTML = "⚠️ Error connecting";
-    });
+  window.showResult = function(data) {
+    if (data.status === "found") {
+      result.innerHTML = `
+        <h3 style="color:green;">✅ Authentic</h3>
+        <p><b>Product:</b> ${data.product}</p>
+        <p><b>Diamond:</b> ${data.diamond}</p>
+        <p><b>Gold:</b> ${data.gold}</p>
+        <p><b>Colour:</b> ${data.colour}</p>
+        <p><b>Clarity:</b> ${data.clarity}</p>
+        <p><b>Date:</b> ${data.date}</p>
+      `;
+    } else {
+      result.innerHTML = "<h3 style='color:red;'>❌ Invalid Product</h3>";
+    }
+  };
+
+  let script = document.createElement("script");
+  script.src = API_URL + "?code=" + encodeURIComponent(code) + "&callback=showResult";
+  document.body.appendChild(script);
 }
