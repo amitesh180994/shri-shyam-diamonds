@@ -11,17 +11,8 @@ function verifyProduct() {
 
   result.innerHTML = "Checking...";
 
-  // fallback
-  setTimeout(function () {
-    if (result.innerHTML === "Checking...") {
-      result.innerHTML = "⚠️ Connection slow... try again";
-    }
-  }, 5000);
-
   window.showResult = function (data) {
-
     if (data.status === "found") {
-
       var imgHtml = "";
 
       if (data.image) {
@@ -33,24 +24,18 @@ function verifyProduct() {
           '<h2 class="auth-title">✅ Authentic Diamond</h2>' +
 
           '<div class="result-layout">' +
-
             '<div class="result-table">' +
-
               '<div><span>Product</span><b>' + data.product + '</b></div>' +
               '<div><span>Diamond</span><b>' + data.diamond + '</b></div>' +
-
               '<div><span>Gold</span><b>' + data.gold + '</b></div>' +
               '<div><span>Colour</span><b>' + data.colour + '</b></div>' +
-
               '<div><span>Clarity</span><b>' + data.clarity + '</b></div>' +
               '<div><span>Date</span><b>' + data.date + '</b></div>' +
-
             '</div>' +
-
             imgHtml +
-
           '</div>' +
 
+          '<button class="download-btn" onclick="downloadCertificate()">📄 Download Certificate</button>' +
         '</div>';
 
     } else {
@@ -58,11 +43,9 @@ function verifyProduct() {
     }
   };
 
-  // remove old script
   var old = document.getElementById("jsonp-script");
   if (old) old.remove();
 
-  // JSONP call
   var script = document.createElement("script");
   script.id = "jsonp-script";
   script.src =
@@ -93,3 +76,114 @@ window.onload = function () {
     }
   }
 };
+
+/* DOWNLOAD / PRINT CERTIFICATE */
+function downloadCertificate() {
+  var card = document.querySelector(".result-card");
+
+  if (!card) {
+    alert("Please verify product first");
+    return;
+  }
+
+  var win = window.open("", "", "width=900,height=750");
+
+  win.document.write(`
+    <html>
+    <head>
+      <title>COH Diamond Certificate</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 30px;
+          text-align: center;
+          color: #071431;
+        }
+
+        .certificate {
+          max-width: 750px;
+          margin: auto;
+          padding: 30px;
+          border: 3px solid #c9a24d;
+          border-radius: 16px;
+        }
+
+        h1 {
+          color: #061737;
+          margin-bottom: 5px;
+        }
+
+        h2 {
+          color: green;
+          margin-bottom: 25px;
+        }
+
+        .result-table {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          border: 1px solid #ddd;
+          margin-top: 20px;
+        }
+
+        .result-table div {
+          padding: 14px;
+          border-bottom: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+        }
+
+        .result-table span {
+          display: block;
+          font-size: 12px;
+          color: #777;
+          margin-bottom: 5px;
+        }
+
+        .result-table b {
+          font-size: 16px;
+        }
+
+        .result-img {
+          width: 180px;
+          margin-top: 20px;
+          border-radius: 12px;
+        }
+
+        .download-btn {
+          display: none;
+        }
+
+        .footer {
+          margin-top: 30px;
+          font-size: 13px;
+          color: #555;
+        }
+
+        @media print {
+          button {
+            display: none;
+          }
+        }
+      </style>
+    </head>
+
+    <body>
+      <div class="certificate">
+        <h1>COH Gemological Centers</h1>
+        <p>Certified • Tested • Trusted</p>
+
+        ${card.innerHTML}
+
+        <div class="footer">
+          <p>This certificate is generated from online diamond verification system.</p>
+          <p>Final grading is subject to COH Gemological policies.</p>
+        </div>
+
+        <br>
+        <button onclick="window.print()">Print / Save as PDF</button>
+      </div>
+    </body>
+    </html>
+  `);
+
+  win.document.close();
+}
