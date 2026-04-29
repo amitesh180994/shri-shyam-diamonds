@@ -429,3 +429,33 @@ nav a {
     grid-template-columns: 1fr;
   }
 }
+/* ===== FIX DISCLAIMER TEXT ===== */
+
+.disclaimer {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #061737, #0b2556);
+  color: white;
+  text-align: center;
+}
+
+.disclaimer h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #ffffff !important;
+}
+
+.disclaimer-box {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.disclaimer-box p {
+  color: #ffffff !important;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
