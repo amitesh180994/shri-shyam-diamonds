@@ -603,3 +603,9 @@ nav a {
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(212,175,55,0.4);
 }
+.result-img {
+  width: 220px;
+  margin-top: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(212,175,55,0.4);
+}
