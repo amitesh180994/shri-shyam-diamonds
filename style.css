@@ -459,3 +459,75 @@ nav a {
   line-height: 1.7;
   margin-bottom: 10px;
 }
+.result-card {
+  max-width: 650px;
+  margin: 25px auto 0;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+  border-top: 5px solid #20b15a;
+}
+
+.auth-title {
+  color: #0b8f3a;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.result-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.result-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.result-table div {
+  padding: 14px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.result-table div:nth-child(odd) {
+  border-right: 1px solid #e5e5e5;
+}
+
+.result-table span {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.result-table b {
+  font-size: 16px;
+  color: #071431;
+}
+
+.result-img {
+  width: 220px;
+  max-width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(212,175,55,0.4);
+}
+
+@media (max-width: 768px) {
+  .result-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .result-table {
+    grid-template-columns: 1fr;
+  }
+
+  .result-table div:nth-child(odd) {
+    border-right: none;
+  }
+}
