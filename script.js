@@ -7,26 +7,19 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyqZiF-G-D8XO-_G0_t_n4qQ8TR33f2LPB7NnqRVuVc/exec";
 
 function verifyProduct() {
-  var codeInput = document.getElementById("codeInput");
-  var result = document.getElementById("result");
-  var code = codeInput.value.trim().toUpperCase();
+  const code = document.getElementById("codeInput").value.trim().toUpperCase();
+  const result = document.getElementById("result");
 
   if (!code) {
-    alert("Please enter verification code");
+    alert("Enter code");
     return;
   }
 
-  result.innerHTML = "<p style='padding:15px;font-weight:bold;'>Checking...</p>";
-
-  fetch(API_URL + "?code=" + encodeURIComponent(code))
-    .then(function(res) {
-      return res.text();
-    })
-    .then(function(data) {
-      result.innerHTML = data;
-    })
-    .catch(function(error) {
-      result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Connection error. Please try again.</p>";
-      console.log(error);
-    });
+  result.innerHTML = `
+    <iframe 
+      src="${API_URL}?code=${encodeURIComponent(code)}"
+      style="width:100%; min-height:650px; border:0; margin-top:20px; border-radius:12px; background:white;"
+      loading="lazy">
+    </iframe>
+  `;
 }
