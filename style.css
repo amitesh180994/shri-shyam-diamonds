@@ -618,3 +618,20 @@ nav a {
     margin: auto;
   }
 }
+.download-btn {
+  margin-top: 22px;
+  padding: 13px 28px;
+  background: linear-gradient(135deg, #061737, #0b2556);
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.download-btn:hover {
+  background: linear-gradient(135deg, #0b2556, #061737);
+  transform: scale(1.04);
+}
