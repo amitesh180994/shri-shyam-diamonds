@@ -1,9 +1,3 @@
-// Updated script for Shri Shyam Diamonds verification page
-// This version uses fetch() to call the Google Apps Script API and displays
-// the result inside the page instead of opening a new tab.
-
-// API endpoint for verification. Replace with your deployed Google Apps Script
-// URL. Do not include query parameters here.
 const SHEET_URL = "https://opensheet.elk.sh/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/Sheet1";
 
 function verifyProduct() {
@@ -15,15 +9,16 @@ function verifyProduct() {
     return;
   }
 
-  result.innerHTML = "Checking...";
+  result.innerHTML = "<p style='padding:15px;font-weight:bold;'>Checking...</p>";
 
   fetch(SHEET_URL)
     .then(res => res.json())
     .then(data => {
-      const found = data.find(item => String(item.Code).toUpperCase() === code);
+
+      const found = data.find(item => String(item.Code).trim().toUpperCase() === code);
 
       if (!found) {
-        result.innerHTML = "<p style='color:red;font-weight:bold'>Invalid Code ❌</p>";
+        result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Invalid Code ❌</p>";
         return;
       }
 
@@ -37,7 +32,6 @@ function verifyProduct() {
       `;
     })
     .catch(() => {
-      result.innerHTML = "Error loading data";
+      result.innerHTML = "<p style='color:red;font-weight:bold;'>Sheet access error ❌</p>";
     });
-}
 }
