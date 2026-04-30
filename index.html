@@ -21,6 +21,17 @@
         background-color: #f7f7f7;
         text-align: left;
       }
+    
+      .premium-result th {
+        background:#061737 !important;
+        color:white;
+        width:35%;
+      }
+      .premium-result td {
+        background:#fff;
+        color:#071431;
+        font-weight:600;
+      }
     </style>
   </head>
   <body>
@@ -105,7 +116,52 @@
       <p>Instagram: @shri_shyam_diamonds</p>
       <p>Facebook: Shri Shyam Diamonds</p>
     </section>
-    <!-- Load the updated script -->
-  <script src="./script.js?v=1000000"></script>
+    <!-- Verification script inline: no external script.js needed -->
+<script>
+const SHEET_URL = "https://opensheet.elk.sh/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/Sheet1";
+
+function verifyProduct() {
+  const input = document.getElementById("codeInput");
+  const result = document.getElementById("result");
+  const code = input.value.trim().toUpperCase();
+
+  if (!code) {
+    alert("Enter code");
+    return;
+  }
+
+  result.innerHTML = "<p style='padding:15px;font-weight:bold;'>Checking...</p>";
+
+  fetch(SHEET_URL)
+    .then(function(res) {
+      if (!res.ok) throw new Error("Sheet not reachable");
+      return res.json();
+    })
+    .then(function(data) {
+      const found = data.find(function(item) {
+        return String(item.Code || "").trim().toUpperCase() === code;
+      });
+
+      if (!found) {
+        result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Invalid Code ❌</p>";
+        return;
+      }
+
+      let html = "<table class='result-table premium-result'>";
+      Object.keys(found).forEach(function(key) {
+        if (String(found[key]).trim() !== "") {
+          html += "<tr><th>" + key + "</th><td>" + found[key] + "</td></tr>";
+        }
+      });
+      html += "</table>";
+      result.innerHTML = html;
+    })
+    .catch(function(error) {
+      console.log(error);
+      result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Sheet loading error. Make sure Google Sheet is public and sheet tab name is Sheet1.</p>";
+    });
+}
+</script>
+
   </body>
 </html>
