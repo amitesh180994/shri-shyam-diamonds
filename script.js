@@ -1,5 +1,7 @@
 const SHEET_URL = "https://opensheet.elk.sh/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/Sheet1";
 
+let currentData = null;
+
 function verifyProduct() {
   const code = document.getElementById("codeInput").value.trim().toUpperCase();
   const result = document.getElementById("result");
@@ -15,23 +17,79 @@ function verifyProduct() {
     .then(res => res.json())
     .then(data => {
 
-      const found = data.find(item => String(item.Code).trim().toUpperCase() === code);
+      const found = data.find(item => String(item.Code).toUpperCase() === code);
 
       if (!found) {
         result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Invalid Code ❌</p>";
         return;
       }
 
-      result.innerHTML = `
-        <table style="width:100%;margin-top:20px;border-collapse:collapse;">
-          <tr><th>Product</th><td>${found.Product}</td></tr>
-          <tr><th>Diamond</th><td>${found.Diamond}</td></tr>
-          <tr><th>Gold</th><td>${found.Gold}</td></tr>
-          <tr><th>Status</th><td>${found.Status}</td></tr>
-        </table>
+      currentData = found;
+
+      let imageUrl = found.image || found.Image || "";
+
+      let html = `
+      <div style="margin-top:20px;border-radius:12px;background:white;box-shadow:0 0 20px rgba(0,0,0,0.1);padding:20px;">
+        <table style="width:100%;border-collapse:collapse;">
       `;
+
+      Object.keys(found).forEach(key => {
+        if (key.toLowerCase() !== "image") {
+          html += `
+          <tr>
+            <th style="background:#061737;color:white;padding:12px;text-align:left;">${key}</th>
+            <td style="border:1px solid #ddd;padding:12px;font-weight:bold;">${found[key]}</td>
+          </tr>`;
+        }
+      });
+
+      html += `</table>`;
+
+      if (imageUrl) {
+        html += `<div style="text-align:center;">
+        <img src="${imageUrl}" style="max-width:250px;margin-top:20px;border-radius:12px;">
+        </div>`;
+      }
+
+      html += `
+      <button onclick="downloadCertificate()" style="margin-top:20px;padding:12px 25px;background:#061737;color:white;border:none;border-radius:8px;cursor:pointer;">
+      Download Certificate
+      </button>
+      </div>
+      `;
+
+      result.innerHTML = html;
+
     })
     .catch(() => {
-      result.innerHTML = "<p style='color:red;font-weight:bold;'>Sheet access error ❌</p>";
+      result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Error loading data ❌</p>";
     });
+}
+
+function downloadCertificate() {
+  if (!currentData) return;
+
+  let imageUrl = currentData.image || currentData.Image || "";
+
+  let cert = `
+  <html><body style="font-family:Arial;padding:40px;">
+  <h1 style="text-align:center;">COH Gemological Centre</h1>
+  <h3 style="text-align:center;">Diamond Certificate</h3><hr>
+  `;
+
+  Object.keys(currentData).forEach(key => {
+    if (key.toLowerCase() !== "image") {
+      cert += `<p><b>${key}:</b> ${currentData[key]}</p>`;
+    }
+  });
+
+  if (imageUrl) {
+    cert += `<img src="${imageUrl}" style="max-width:200px;">`;
+  }
+
+  cert += `<script>window.print()<\/script></body></html>`;
+
+  const win = window.open("");
+  win.document.write(cert);
+  win.document.close();
 }
