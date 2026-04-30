@@ -15,33 +15,29 @@ function verifyProduct() {
     return;
   }
 
-  result.innerHTML = "<p style='font-weight:bold;padding:15px;'>Checking...</p>";
+  result.innerHTML = "Checking...";
 
   fetch(SHEET_URL)
     .then(res => res.json())
     .then(data => {
-      const found = data.find(item => String(item.Code).trim().toUpperCase() === code);
+      const found = data.find(item => String(item.Code).toUpperCase() === code);
 
       if (!found) {
-        result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Invalid Code ❌</p>";
+        result.innerHTML = "<p style='color:red;font-weight:bold'>Invalid Code ❌</p>";
         return;
       }
 
-      let html = `<table style="width:100%;margin-top:20px;border-collapse:collapse;background:white;">`;
-
-      Object.keys(found).forEach(key => {
-        html += `
-          <tr>
-            <th style="border:1px solid #ddd;padding:12px;background:#061737;color:white;text-align:left;">${key}</th>
-            <td style="border:1px solid #ddd;padding:12px;text-align:left;">${found[key]}</td>
-          </tr>
-        `;
-      });
-
-      html += `</table>`;
-      result.innerHTML = html;
+      result.innerHTML = `
+        <table style="width:100%;margin-top:20px;border-collapse:collapse;">
+          <tr><th>Product</th><td>${found.Product}</td></tr>
+          <tr><th>Diamond</th><td>${found.Diamond}</td></tr>
+          <tr><th>Gold</th><td>${found.Gold}</td></tr>
+          <tr><th>Status</th><td>${found.Status}</td></tr>
+        </table>
+      `;
     })
     .catch(() => {
-      result.innerHTML = "<p style='color:red;font-weight:bold;padding:15px;'>Sheet loading error. Sheet public karo.</p>";
+      result.innerHTML = "Error loading data";
     });
+}
 }
