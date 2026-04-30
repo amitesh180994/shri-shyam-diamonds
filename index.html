@@ -1,208 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COH Diamond Verification</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COH Diamond Verification</title>
+    <link rel="stylesheet" href="./style.css?v=99999" />
+    <style>
+      .result-card {
+        margin-top: 24px;
+        background: #ffffff;
+        border: 1px solid #e3e3e3;
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+        text-align: left;
+        overflow-x: auto;
+      }
 
-<style>
-body{
-  font-family:Arial;
-  background:#f4f4f4;
-  margin:0;
-}
+      .result-title {
+        text-align: center;
+        color: #061737;
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 16px;
+      }
 
-header{
-  background:#061737;
-  color:white;
-  padding:15px;
-  text-align:center;
-}
+      .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        overflow: hidden;
+        border-radius: 10px;
+      }
 
-.verify-box{
-  width:90%;
-  margin:30px auto;
-  background:white;
-  padding:25px;
-  border-radius:10px;
-  box-shadow:0 0 20px rgba(0,0,0,0.2);
-  text-align:center;
-}
+      .result-table th,
+      .result-table td {
+        border: 1px solid #dddddd;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
 
-input{
-  width:70%;
-  padding:15px;
-  font-size:16px;
-}
+      .result-table th {
+        width: 32%;
+        background: #061737;
+        color: white;
+        text-align: left;
+        text-transform: capitalize;
+      }
 
-button{
-  padding:15px 20px;
-  background:#061737;
-  color:white;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-}
+      .result-table td {
+        color: #061737;
+        font-weight: 700;
+      }
 
-table{
-  width:100%;
-  margin-top:20px;
-  border-collapse:collapse;
-}
+      .product-img-wrap {
+        margin-top: 20px;
+        text-align: center;
+      }
 
-th{
-  background:#061737;
-  color:white;
-  padding:12px;
-  text-align:left;
-}
+      .product-img-wrap img {
+        max-width: 280px;
+        width: 100%;
+        border-radius: 14px;
+        box-shadow: 0 0 22px rgba(0,0,0,0.18);
+      }
 
-td{
-  border:1px solid #ddd;
-  padding:12px;
-}
+      .cert-btn {
+        display: block;
+        margin: 22px auto 0;
+        padding: 14px 28px;
+        background: #061737;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 900;
+        cursor: pointer;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+      }
 
-img{
-  margin-top:20px;
-  max-width:250px;
-  border-radius:10px;
-}
-</style>
+      .status-good {
+        color: #008a2e;
+        font-weight: 900;
+      }
 
-</head>
+      .error-msg {
+        margin-top: 20px;
+        color: red;
+        font-weight: 900;
+        padding: 15px;
+        text-align: center;
+      }
 
-<body>
+      .checking-msg {
+        margin-top: 20px;
+        color: #061737;
+        font-weight: 900;
+        padding: 15px;
+        text-align: center;
+      }
 
-<header>
-<h2>COH Diamond Verification</h2>
-</header>
+      @media (max-width: 768px) {
+        .result-table th,
+        .result-table td {
+          padding: 10px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
 
-<div class="verify-box">
+  <body>
+    <header>
+      <div class="logo">
+        <img src="IMG_4996.jpeg" class="logo-img" alt="COH Logo" />
+      </div>
+      <nav>
+        <a href="#">HOME</a>
+        <a href="#verify">VERIFY</a>
+        <a href="#education">4Cs</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </header>
 
-<h3>VERIFY YOUR DIAMOND</h3>
+    <section class="hero">
+      <div class="hero-left">
+        <h2>
+          VERIFY.<br />
+          TRUST.<br />
+          <span>BE ASSURED.</span>
+        </h2>
+        <p>Every diamond tells a story of trust.</p>
+        <p>We ensure it’s 100% authentic.</p>
+      </div>
+      <div class="hero-right">
+        <img src="EB31FD41-A6A5-4458-B107-19F9FC14A769.png" class="ring-img" alt="Diamond Ring" />
+      </div>
+    </section>
 
-<input type="text" id="codeInput" placeholder="Enter Code (e.g. SSD-20001)">
-<button onclick="verifyProduct()">VERIFY NOW</button>
+    <section class="verify-box" id="verify">
+      <h3>VERIFY YOUR DIAMOND</h3>
+      <div class="verify-row">
+        <input type="text" id="codeInput" placeholder="Enter Code (e.g. SSD-20001)" />
+        <button onclick="verifyProduct()">VERIFY NOW</button>
+      </div>
+      <div id="result"></div>
+    </section>
 
-<div id="result"></div>
+    <section class="diamond-education" id="education">
+      <h3>4Cs of Diamond</h3>
+      <div class="education-grid">
+        <div class="edu-card">
+          <h4>✨ Cut</h4>
+          <p>Controls sparkle. Precision, symmetry and polish define brilliance.</p>
+        </div>
+        <div class="edu-card">
+          <h4>💎 Clarity</h4>
+          <p>Shows internal purity. Higher clarity = fewer inclusions.</p>
+        </div>
+        <div class="edu-card">
+          <h4>🎨 Color</h4>
+          <p>Ranges from D (best) to Z. Premium = colorless range.</p>
+        </div>
+        <div class="edu-card">
+          <h4>⚖️ Carat</h4>
+          <p>Weight of diamond. Bigger carat ≠ always bigger look.</p>
+        </div>
+      </div>
+    </section>
 
-</div>
+    <section class="disclaimer">
+      <h3>⚠️ Important Disclaimer</h3>
+      <div class="disclaimer-box">
+        <p>Diamond grading may vary depending on testing conditions, equipment and methods used.</p>
+        <p>This verification system is for customer trust. Final grading is subject to COH policies.</p>
+      </div>
+    </section>
 
-<script>
-const SHEET_URL = "https://opensheet.elk.sh/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/Sheet1";
+    <section class="contact" id="contact">
+      <h3>Contact Us</h3>
+      <p>+91 7905528926</p>
+      <p>+91 8957136335</p>
+      <p>Instagram: @shri_shyam_diamonds</p>
+      <p>Facebook: Shri Shyam Diamonds</p>
+    </section>
 
-let currentData = null;
+    <script>
+      const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1jrTes410gkvf0dMwW7TQZd2W9U7e60dcZyMyHbSmaBc/gviz/tq?tqx=out:csv&gid=0";
+      let currentData = null;
 
-function verifyProduct(){
+      function parseCSV(text) {
+        const rows = [];
+        let row = [];
+        let cell = "";
+        let insideQuotes = false;
 
-const code = document.getElementById("codeInput").value.trim().toUpperCase();
-const result = document.getElementById("result");
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          const next = text[i + 1];
 
-if(!code){
-alert("Enter code");
-return;
-}
+          if (char === '"' && insideQuotes && next === '"') {
+            cell += '"';
+            i++;
+          } else if (char === '"') {
+            insideQuotes = !insideQuotes;
+          } else if (char === ',' && !insideQuotes) {
+            row.push(cell);
+            cell = "";
+          } else if ((char === '\n' || char === '\r') && !insideQuotes) {
+            if (cell !== "" || row.length > 0) {
+              row.push(cell);
+              rows.push(row);
+              row = [];
+              cell = "";
+            }
+            if (char === '\r' && next === '\n') i++;
+          } else {
+            cell += char;
+          }
+        }
 
-result.innerHTML="Checking...";
+        if (cell !== "" || row.length > 0) {
+          row.push(cell);
+          rows.push(row);
+        }
 
-fetch(SHEET_URL)
-.then(res=>res.json())
-.then(data=>{
+        return rows;
+      }
 
-const found = data.find(item => String(item.Code).toUpperCase() === code);
+      function normalizeKey(key) {
+        return String(key || "").trim().toLowerCase();
+      }
 
-if(!found){
-result.innerHTML="<p style='color:red;font-weight:bold'>Invalid Code ❌</p>";
-return;
-}
+      function getValue(data, names) {
+        for (const name of names) {
+          const foundKey = Object.keys(data).find(k => normalizeKey(k) === normalizeKey(name));
+          if (foundKey && data[foundKey]) return data[foundKey];
+        }
+        return "";
+      }
 
-currentData = found;
+      function verifyProduct() {
+        const code = document.getElementById("codeInput").value.trim().toUpperCase();
+        const result = document.getElementById("result");
 
-let imageUrl = found.image || found.Image || "";
+        if (!code) {
+          alert("Enter code");
+          return;
+        }
 
-let html = "<table>";
+        result.innerHTML = "<p class='checking-msg'>Checking...</p>";
 
-Object.keys(found).forEach(key=>{
-if(key.toLowerCase() !== "image"){
-html += `<tr><th>${key}</th><td>${found[key]}</td></tr>`;
-}
-});
+        fetch(SHEET_CSV_URL + "&cache=" + Date.now())
+          .then(res => {
+            if (!res.ok) throw new Error("Sheet not accessible");
+            return res.text();
+          })
+          .then(csvText => {
+            const rows = parseCSV(csvText).filter(r => r.some(c => String(c).trim() !== ""));
+            if (rows.length < 2) throw new Error("No data found in sheet");
 
-html += "</table>";
+            const headers = rows[0].map(h => String(h).trim());
+            const data = rows.slice(1).map(row => {
+              const obj = {};
+              headers.forEach((header, index) => {
+                obj[header] = row[index] || "";
+              });
+              return obj;
+            });
 
-if(imageUrl){
-html += `<img src="${imageUrl}">`;
-}
+            const found = data.find(item => String(getValue(item, ["Code", "code"])).trim().toUpperCase() === code);
 
-html += `
-<br><br>
-<button onclick="downloadCertificate()">Download Certificate</button>
-`;
+            if (!found) {
+              currentData = null;
+              result.innerHTML = "<p class='error-msg'>Invalid Code ❌</p>";
+              return;
+            }
 
-result.innerHTML = html;
+            currentData = found;
+            const imageUrl = getValue(found, ["Image", "image", "Photo", "photo", "Product Image", "product image"]);
 
-})
-.catch(()=>{
-result.innerHTML="Error loading data";
-});
+            let html = "<div class='result-card'><div class='result-title'>Authentic Verification Result ✔</div><table class='result-table'>";
 
-}
+            Object.keys(found).forEach(key => {
+              const value = found[key];
+              if (!key || String(value).trim() === "") return;
+              if (normalizeKey(key) === "image" || normalizeKey(key) === "photo" || normalizeKey(key) === "product image") return;
 
-function downloadCertificate(){
+              const isStatus = normalizeKey(key) === "status";
+              html += `<tr><th>${key}</th><td class='${isStatus ? "status-good" : ""}'>${value}</td></tr>`;
+            });
 
-if(!currentData) return;
+            html += "</table>";
 
-let imageUrl = currentData.image || currentData.Image || "";
+            if (imageUrl) {
+              html += `<div class='product-img-wrap'><img src='${imageUrl}' alt='Product Image'></div>`;
+            }
 
-let cert = `
-<html>
-<head>
-<title>Certificate</title>
-<style>
-body{font-family:Arial;padding:40px;}
-.cert{border:3px solid #061737;padding:30px;}
-h1{text-align:center;color:#b78d3f;}
-</style>
-</head>
-<body>
+            html += "<button class='cert-btn' onclick='downloadCertificate()'>Download Certificate</button></div>";
+            result.innerHTML = html;
+          })
+          .catch(error => {
+            console.error(error);
+            result.innerHTML = "<p class='error-msg'>Sheet loading error ❌<br>Make sure Google Sheet sharing is: Anyone with link → Viewer</p>";
+          });
+      }
 
-<div class="cert">
+      function downloadCertificate() {
+        if (!currentData) return;
 
-<h1>COH Gemological Centre</h1>
-<h3 style="text-align:center;">Diamond Verification Certificate</h3>
-<hr>
+        const imageUrl = getValue(currentData, ["Image", "image", "Photo", "photo", "Product Image", "product image"]);
+        let certRows = "";
 
-`;
+        Object.keys(currentData).forEach(key => {
+          const value = currentData[key];
+          if (!key || String(value).trim() === "") return;
+          if (normalizeKey(key) === "image" || normalizeKey(key) === "photo" || normalizeKey(key) === "product image") return;
+          certRows += `<tr><th>${key}</th><td>${value}</td></tr>`;
+        });
 
-Object.keys(currentData).forEach(key=>{
-if(key.toLowerCase() !== "image"){
-cert += `<p><b>${key}:</b> ${currentData[key]}</p>`;
-}
-});
+        const certHTML = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Diamond Verification Certificate</title>
+            <style>
+              body { font-family: Arial, Helvetica, sans-serif; padding: 35px; color: #061737; }
+              .cert { border: 4px solid #061737; border-radius: 18px; padding: 30px; }
+              h1 { text-align:center; color:#b78d3f; margin-bottom: 5px; }
+              h2 { text-align:center; margin-top: 0; }
+              table { width:100%; border-collapse: collapse; margin-top: 25px; }
+              th, td { border:1px solid #ccc; padding:12px; text-align:left; }
+              th { background:#061737; color:white; width:32%; }
+              img { max-width:250px; display:block; margin:25px auto; border-radius:12px; }
+              .footer { text-align:center; margin-top: 30px; font-weight: bold; }
+            </style>
+          </head>
+          <body>
+            <div class="cert">
+              <h1>COH Gemological Centre</h1>
+              <h2>Diamond Verification Certificate</h2>
+              <table>${certRows}</table>
+              ${imageUrl ? `<img src="${imageUrl}" alt="Product Image">` : ""}
+              <p class="footer">This product is verified as per submitted record.</p>
+            </div>
+            <script>window.onload = function(){ window.print(); }<\/script>
+          </body>
+          </html>
+        `;
 
-if(imageUrl){
-cert += `<img src="${imageUrl}" style="max-width:200px;">`;
-}
-
-cert += `
-<p style="text-align:center;margin-top:30px;">Verified Product ✔</p>
-
-</div>
-
-<script>
-window.onload = function(){window.print();}
-<\/script>
-
-</body>
-</html>
-`;
-
-const win = window.open("");
-win.document.write(cert);
-win.document.close();
-
-}
-</script>
-
-</body>
+        const win = window.open("", "_blank");
+        win.document.open();
+        win.document.write(certHTML);
+        win.document.close();
+      }
+    </script>
+  </body>
 </html>
