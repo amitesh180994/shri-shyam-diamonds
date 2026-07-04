@@ -31,7 +31,7 @@ function verifyProduct() {
       let html = `
       <div style="margin-top:20px;border-radius:12px;background:white;box-shadow:0 0 20px rgba(0,0,0,0.1);padding:20px;">
 <div style="display:flex;gap:24px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;">
-        <table style="width:60%;min-width:340px;border-collapse:collapse;">
+        <table style="width:45%;min-width:290px;border-collapse:collapse;">
       `;
 
       Object.keys(found).forEach(key => {
@@ -46,9 +46,9 @@ function verifyProduct() {
 
       html += `</table>`;
 
-      html += `<div style="width:35%;min-width:260px;display:flex;justify-content:center;">
+      html += `<div style="width:50%;min-width:320px;display:flex;justify-content:center;">
       <img src="${imageUrl}"
-      style="width:100%;max-width:320px;border-radius:12px;"
+      style="width:100%;max-width:420px;border-radius:12px;"
       onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${found.Code}.jpg';if(this.naturalWidth==0){this.src='https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${found.Code.toLowerCase()}.jpg';}">
       </div></div>
 
