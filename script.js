@@ -26,7 +26,7 @@ function verifyProduct() {
 
       currentData = found;
 
-      let imageUrl = found.image || found.Image || "";
+      let imageUrl = `https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${found.Code}.png`;
 
       let html = `
       <div style="margin-top:20px;border-radius:12px;background:white;box-shadow:0 0 20px rgba(0,0,0,0.1);padding:20px;">
@@ -47,7 +47,7 @@ function verifyProduct() {
 
       if (imageUrl) {
         html += `<div style="text-align:center;">
-        <img src="${imageUrl}" style="max-width:250px;margin-top:20px;border-radius:12px;">
+        <img src="${imageUrl}" style="max-width:250px;margin-top:20px;border-radius:12px;" onerror="this.style.display='none'">
         </div>`;
       }
 
@@ -69,7 +69,7 @@ function verifyProduct() {
 function downloadCertificate() {
   if (!currentData) return;
 
-  let imageUrl = currentData.image || currentData.Image || "";
+  let imageUrl = `https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${currentData.Code}.png`;
 
   let cert = `
   <html><body style="font-family:Arial;padding:40px;">
