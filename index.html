@@ -278,7 +278,13 @@
             }
 
             currentData = found;
-            const imageUrl = `https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${String(getValue(found,["Code","code"])).trim()}.png`;
+            const productCode=String(getValue(found,["Code","code"])).trim();
+const imageCandidates=[
+`https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${productCode}.png`,
+`https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${productCode}.jpg`,
+`https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${productCode}.jpeg`,
+`https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${productCode}.webp`
+];
 
             let html = "<div class='result-card'><div class='result-title'>Authentic Verification Result ✔</div><table class='result-table'>";
 
@@ -293,12 +299,18 @@
 
             html += "</table>";
 
-            if (imageUrl) {
-              html += `<div class='product-img-wrap'><img src='${imageUrl}' alt='Product Image'></div>`;
-            }
+html += `<div class='product-img-wrap'><img id="productImg" src="${imageCandidates[0]}" alt="Product Image"></div>`;
 
             html += "<button class='cert-btn' onclick='downloadCertificate()'>Download Certificate</button></div>";
-            result.innerHTML = html;
+result.innerHTML = html;
+const pi=document.getElementById('productImg');
+if(pi){
+ let i=1;
+ pi.onerror=function(){
+   if(i<imageCandidates.length){pi.src=imageCandidates[i++];}
+   else{pi.style.display='none';}
+ };
+}
           })
           .catch(error => {
             console.error(error);
