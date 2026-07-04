@@ -278,7 +278,7 @@
             }
 
             currentData = found;
-            const imageUrl = getValue(found, ["Image", "image", "Photo", "photo", "Product Image", "product image"]);
+            const imageUrl = `https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${String(getValue(found,["Code","code"])).trim()}.png`;
 
             let html = "<div class='result-card'><div class='result-title'>Authentic Verification Result ✔</div><table class='result-table'>";
 
@@ -309,7 +309,7 @@
       function downloadCertificate() {
         if (!currentData) return;
 
-        const imageUrl = getValue(currentData, ["Image", "image", "Photo", "photo", "Product Image", "product image"]);
+        const imageUrl = `https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${String(getValue(currentData,["Code","code"])).trim()}.png`;
         let certRows = "";
 
         Object.keys(currentData).forEach(key => {
