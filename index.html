@@ -56,7 +56,7 @@
       
 .result-table-wrap{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
 .result-table{width:58%;}
-.product-img-wrap{width:38%;margin-top:0;display:flex;justify-content:center;align-items:center;}
+.product-img-wrap{width:38%;margin-top:0;text-align:center;}
 .product-img-wrap img{max-width:340px;width:100%;border-radius:14px;box-shadow:0 0 22px rgba(0,0,0,.18);}
 @media(max-width:768px){.result-table-wrap{display:block;}.result-table{width:100%;}.product-img-wrap{width:100%;margin-top:20px;}}
 
@@ -347,7 +347,8 @@ if(pi){
               <h1>COH Gemological Centre</h1>
               <h2>Diamond Verification Certificate</h2>
               <table>${certRows}</table>
-              ${imageUrl ? `<img src="${imageUrl}" alt="Product Image" onerror="this.onerror=null;this.src=`https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${String(getValue(currentData,['Code','code'])).trim()}.jpg`;">` : ""}
+              <img src="${imageUrl}" alt="Product Image"
+onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/amitesh180994/shri-shyam-diamonds/main/images/${String(getValue(currentData,['Code','code'])).trim()}.jpg';">
               <p class="footer">This product is verified as per submitted record.</p>
             </div>
             <script>window.onload = function(){ window.print(); }<\/script>
